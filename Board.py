@@ -19,7 +19,7 @@ class Board:
         """
         return [[None]*self.width for i in range(self.height)]
 
-    def next_state(self, body, head, apple):
+    def next_state(self, body, head, apple = (-1,-1)):
         """
         update the state of the board with location of body head and apple
         :param body: array of tuple values representing the snake's body
@@ -29,10 +29,10 @@ class Board:
         """
         for i in range(self.height):
             for j in range(self.width):
-                if (i,j) in body:
-                    self.state[i][j] = 'BODY'
-                elif (i,j) in head:
+                if (i,j) in head:
                     self.state[i][j] = 'HEAD'
+                elif (i,j) in body:
+                    self.state[i][j] = 'BODY'
                 elif (i,j) in apple:
                     self.state[i][j] = 'APPLE'
                 else:
@@ -43,7 +43,7 @@ class Board:
         render the board state to the terminal
         :return: board state printed to the terminal
         """
-        states = {'HEAD': '  X  ', 'BODY': '  O  ', 'APPLE': '  A  '}  # Dictionary of possible states
+        states = {'HEAD': ' X ', 'BODY': ' O ', 'APPLE': ' A '}  # Dictionary of possible states
         for i in range(self.height):  # Loop through each row in self.state
             row = []  # Init empty printable row
             for j in range(self.width):  # Loop through each value in row
@@ -54,13 +54,3 @@ class Board:
             print(''.join(row))  # Pretty print each row
 
 
-
-
-
-
-
-
-
-board1 = Board(10,10)
-board1.next_state([(1,1),(2,2),(3,3),(4,4)],[(5,5)],[(6,6)])
-board1.render()
