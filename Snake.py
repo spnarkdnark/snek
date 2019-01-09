@@ -16,24 +16,23 @@ class Snake:
         self.direction = direction
         self.length = len(body)
         self.control = {'UP': (0, 1), 'DOWN': (0, -1), 'LEFT': (-1, 0), 'RIGHT': (1, 0)}
-        self.head = self.head()
         self.alive = True
-        self.position = self.get_position()
 
     def get_position(self):
         """
         add the head and direction to return the snakes next position
         :return: a tuple which will be appended to the snake's body
         """
-        return tuple(map(operator.add,self.head,self.direction))
+        head = self.head()
+        return tuple(map(operator.add, head, self.direction))
 
     def take_step(self):
         """
         add the new position to snake body and pop the last segment off
-        :param position: an (x,y) tuple of the new body segment
         :return: nothing, mutates self.body
         """
-        self.body.append(self.position)
+        position = self.get_position()
+        self.body.append(position)
         self.body.pop(0)
 
     def set_direction(self,direction):
@@ -58,4 +57,7 @@ class Snake:
         """
         if len(self.body) != len(set(self.body)):
             self.alive = False
+
+
+#testuple = tuple(map(lambda x: x%10,snek.position))  # This will give you the coordinate to use for wraparound
 
